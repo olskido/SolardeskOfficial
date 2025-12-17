@@ -1,12 +1,36 @@
-.container {
+.card {
     width: 100%;
     height: 100%;
-    display: flex;
+    background: #0f172a;
+    border-radius: 16px;
+    border: 1px solid rgba(51, 65, 85, 0.5);
+    overflow: hidden;
 }
 
-.iframe {
+/* === CROPPED DEXSCREENER === */
+.chartBody {
+    position: relative;
     width: 100%;
     height: 100%;
+    overflow: hidden;
+}
+
+/* hide DexScreener header + footer */
+.chartBody iframe {
+    position: absolute;
+    top: -56px;
+    /* removes "Chart" bar */
+    left: 0;
+    width: 100%;
+    height: calc(100% + 56px);
+    /* reclaim space */
     border: none;
-    flex: 1;
+}
+
+.fallback {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #94a3b8;
 }

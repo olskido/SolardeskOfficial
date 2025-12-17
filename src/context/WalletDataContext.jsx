@@ -8,6 +8,7 @@ export const WalletDataProvider = ({ children }) => {
     const { connection } = useConnection();
     const { publicKey } = useWallet();
     const [holdings, setHoldings] = useState([]);
+    const [transactions, setTransactions] = useState([]);
     const [totalValue, setTotalValue] = useState(0);
     const [isLoading, setIsLoading] = useState(false);
 
@@ -17,6 +18,7 @@ export const WalletDataProvider = ({ children }) => {
                 { symbol: 'SOL', name: 'Solana', balance: 0, usdValue: 0, icon: '◎', iconClass: 'sol-icon' },
                 { symbol: 'USDC', name: 'USD Coin', balance: 0, usdValue: 0, icon: '$', iconClass: 'usdc-icon' },
             ]);
+            setTransactions([]);
             setTotalValue(0);
             return;
         }
@@ -81,7 +83,21 @@ export const WalletDataProvider = ({ children }) => {
             ];
 
             setHoldings(newHoldings);
+            setHoldings(newHoldings);
             setTotalValue(solUsd + usdcUsd);
+
+            // Fetch Transactions
+            const signatures = await connection.getSignaturesForAddress(publicKey, { limit: 20 });
+            const formattedTransactions = signatures.map((sig, index) => ({
+                id: index,
+                type: 'Transaction', // Generic type as we are not parsing inner instructions yet
+                details: `${sig.signature.slice(0, 4)}...${sig.signature.slice(-4)}`,
+                amount: '-', // Amount parsing requires full transaction details
+                time: new Date(sig.blockTime * 1000).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+                status: sig.err ? 'Failed' : 'Success',
+                signature: sig.signature
+            }));
+            setTransactions(formattedTransactions);
 
         } catch (error) {
             console.error("Error fetching holdings:", error);
@@ -95,7 +111,7 @@ export const WalletDataProvider = ({ children }) => {
     }, [publicKey, connection]);
 
     return (
-        <WalletDataContext.Provider value={{ holdings, totalValue, isLoading, refresh: fetchHoldings }}>
+        <WalletDataContext.Provider value={{ holdings, transactions, totalValue, isLoading, refresh: fetchHoldings }}>
             {children}
         </WalletDataContext.Provider>
     );

@@ -1,0 +1,72 @@
+.overlayWrapper {
+    position: fixed;
+    z-index: 9999;
+    bottom: 85px;
+    /* Adjust based on your Taskbar height */
+    left: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.swapCard {
+    width: 400px;
+    /* Jupiter standard width */
+    background: #0d1117;
+    border: 1px solid #30363d;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.7);
+    animation: popUp 0.2s ease-out;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 15px;
+    background: #161b22;
+    border-bottom: 1px solid #30363d;
+}
+
+.title {
+    font-size: 11px;
+    font-weight: 800;
+    color: #f0f6fc;
+    letter-spacing: 0.5px;
+}
+
+.closeBtn {
+    background: none;
+    border: none;
+    color: #8b949e;
+    font-size: 24px;
+    cursor: pointer;
+    line-height: 1;
+}
+
+.terminalBody {
+    height: 550px;
+    /* Required height for the widget to scroll properly */
+    background: #0d1117;
+}
+
+.backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(2px);
+    z-index: -1;
+    /* Behind the card */
+}
+
+@keyframes popUp {
+    from {
+        opacity: 0;
+        transform: scale(0.95) translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}

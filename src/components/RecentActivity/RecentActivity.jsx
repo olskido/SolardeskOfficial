@@ -1,42 +1,67 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useWallet } from '@solana/wallet-adapter-react';
+import { useWalletData } from '../../context/WalletDataContext';
 import Card from '../Card/Card';
 import styles from './RecentActivity.module.css';
 
 const RecentActivity = () => {
-    // Mock data for recent activity
-    const activities = [
-        { id: 1, type: 'Swap', details: 'SOL to USDC', amount: '1.5 SOL', time: '2 mins ago', status: 'Success' },
-        { id: 2, type: 'Send', details: 'To: 8x...3f9', amount: '50 USDC', time: '15 mins ago', status: 'Success' },
-        { id: 3, type: 'Receive', details: 'From: 2a...9b1', amount: '0.5 SOL', time: '1 hour ago', status: 'Success' },
-        { id: 4, type: 'Swap', details: 'USDC to SOL', amount: '100 USDC', time: '3 hours ago', status: 'Failed' },
-        { id: 5, type: 'Stake', details: 'SOL Staking', amount: '10 SOL', time: '1 day ago', status: 'Success' },
-    ];
+    const { transactions, isLoading } = useWalletData();
+    const { connected } = useWallet();
+    const [showAll, setShowAll] = useState(false);
+
+    const displayedTransactions = showAll ? transactions : transactions.slice(0, 5);
+    const hasMore = transactions.length > 5;
+
+    const viewMoreButton = hasMore ? (
+        <button
+            className={styles.viewMoreBtn}
+            onClick={() => setShowAll(!showAll)}
+        >
+            {showAll ? 'Show Less' : 'View More'}
+        </button>
+    ) : null;
 
     return (
         <div id="recent-activity">
-            <Card title="Recent Activity">
+            <Card title="Recent Activity" rightElement={viewMoreButton}>
                 <div className={styles.activityList}>
-                    {activities.map((activity) => (
-                        <div key={activity.id} className={styles.activityItem}>
-                            <div className={styles.activityIcon}>
-                                {activity.type === 'Swap' && '⇄'}
-                                {activity.type === 'Send' && '↗'}
-                                {activity.type === 'Receive' && '↙'}
-                                {activity.type === 'Stake' && '🔒'}
-                            </div>
-                            <div className={styles.activityDetails}>
-                                <div className={styles.activityType}>{activity.type}</div>
-                                <div className={styles.activitySubtext}>{activity.details}</div>
-                            </div>
-                            <div className={styles.activityAmount}>
-                                <div>{activity.amount}</div>
-                                <div className={styles.activityTime}>{activity.time}</div>
-                            </div>
-                            <div className={`${styles.activityStatus} ${activity.status === 'Success' ? styles.success : styles.failed}`}>
-                                {activity.status}
-                            </div>
+                    {!connected ? (
+                        <div className={styles.emptyState}>
+                            Connect wallet to view recent activity
                         </div>
-                    ))}
+                    ) : isLoading ? (
+                        <div className={styles.loadingState}>Loading transactions...</div>
+                    ) : transactions.length === 0 ? (
+                        <div className={styles.emptyState}>No recent transactions found</div>
+                    ) : (
+                        displayedTransactions.map((activity) => (
+                            <div key={activity.id} className={styles.activityItem}>
+                                <div className={styles.activityIcon}>
+                                    {activity.type === 'Transaction' && '⇄'}
+                                </div>
+                                <div className={styles.activityDetails}>
+                                    <div className={styles.activityType}>{activity.type}</div>
+                                    <div className={styles.activitySubtext}>
+                                        <a
+                                            href={`https://solscan.io/tx/${activity.signature}`}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className={styles.txLink}
+                                        >
+                                            {activity.details} ↗
+                                        </a>
+                                    </div>
+                                </div>
+                                <div className={styles.activityAmount}>
+                                    <div>{activity.amount}</div>
+                                    <div className={styles.activityTime}>{activity.time}</div>
+                                </div>
+                                <div className={`${styles.activityStatus} ${activity.status === 'Success' ? styles.success : styles.failed}`}>
+                                    {activity.status}
+                                </div>
+                            </div>
+                        ))
+                    )}
                 </div>
             </Card>
         </div>

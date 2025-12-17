@@ -75,3 +75,41 @@
     background: rgba(239, 68, 68, 0.1);
     color: #ef4444;
 }
+
+.emptyState,
+.loadingState {
+    padding: 32px;
+    text-align: center;
+    color: #9ca3af;
+    font-size: 14px;
+    background: rgba(255, 255, 255, 0.02);
+    border-radius: 12px;
+    border: 1px dashed rgba(255, 255, 255, 0.1);
+}
+
+.txLink {
+    color: #6366f1;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.txLink:hover {
+    color: #818cf8;
+    text-decoration: underline;
+}
+
+.viewMoreBtn {
+    background: transparent;
+    border: 1px solid rgba(99, 102, 241, 0.3);
+    color: #6366f1;
+    padding: 6px 12px;
+    border-radius: 8px;
+    font-size: 12px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.viewMoreBtn:hover {
+    background: rgba(99, 102, 241, 0.1);
+    border-color: #6366f1;
+}

@@ -1,106 +1,92 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { useToken } from '../context/TokenContext';
 import styles from './TradePanel.module.css';
 
-const TradePanel = () => {
-    const { activeToken } = useToken();
-    const [side, setSide] = useState('buy');
-    const [amount, setAmount] = useState('');
+export default function TradePanel() {
+  const { activeToken } = useToken();
+  const [side, setSide] = useState('buy');
+  const [amount, setAmount] = useState('');
+  const [orderType, setOrderType] = useState('market');
 
-    // Placeholder copy function
-    const copyToClipboard = () => {
-        navigator.clipboard.writeText(activeToken.address);
-        alert('Contract address copied!');
-    };
+  const symbol = activeToken?.symbol || 'smlnem';
 
-    return (
-        <div className={styles.container}>
-            {/* LEFT: Trade Form (50%) */}
-            <div className={styles.tradeSection}>
-                <div className={styles.toggle}>
-                    <button
-                        className={side === 'buy' ? styles.buyActive : ''}
-                        onClick={() => setSide('buy')}
-                    >
-                        Buy
-                    </button>
-                    <button
-                        className={side === 'sell' ? styles.sellActive : ''}
-                        onClick={() => setSide('sell')}
-                    >
-                        Sell
-                    </button>
-                </div>
-
-                <div className={styles.form}>
-                    <label className={styles.label}>Amount ({activeToken.symbol})</label>
-                    <input
-                        type="number"
-                        placeholder="0.0"
-                        value={amount}
-                        onChange={(e) => setAmount(e.target.value)}
-                        className={styles.input}
-                    />
-
-                    <div className={styles.presets}>
-                        <button onClick={() => setAmount('0.01')}>0.01</button>
-                        <button onClick={() => setAmount('0.1')}>0.1</button>
-                        <button onClick={() => setAmount('1')}>1</button>
-                        <button onClick={() => setAmount('10')}>10</button>
-                    </div>
-
-                    <button
-                        className={side === 'buy' ? styles.buyBtn : styles.sellBtn}
-                    >
-                        {side === 'buy' ? `Buy ${activeToken.symbol}` : `Sell ${activeToken.symbol}`}
-                    </button>
-                </div>
-            </div>
-
-            {/* RIGHT: Token Info Panel (50%) */}
-            <div className={styles.infoSection}>
-                <h3 className={styles.infoTitle}>Token Info</h3>
-
-                <div className={styles.infoGrid}>
-                    <div className={styles.infoItem}>
-                        <span>Market Cap</span>
-                        <strong>${activeToken.marketCap || 'N/A'}</strong>
-                    </div>
-                    <div className={styles.infoItem}>
-                        <span>Liquidity</span>
-                        <strong>${activeToken.liquidity || 'N/A'}</strong>
-                    </div>
-                    <div className={styles.infoItem}>
-                        <span>24h Volume</span>
-                        <strong>${activeToken.volume24h || 'N/A'}</strong>
-                    </div>
-                    <div className={styles.infoItem}>
-                        <span>24h Buys / Sells</span>
-                        <strong>
-                            {activeToken.buys24h || 0} / {activeToken.sells24h || 0}
-                        </strong>
-                    </div>
-                </div>
-
-                <div className={styles.contractRow}>
-                    <span>Contract Address</span>
-                    <div className={styles.contractActions}>
-                        <a
-                            href={`https://solscan.io/token/${activeToken.address}`}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className={styles.contractLink}
-                        >
-                            {activeToken.address?.slice(0, 8)}...{activeToken.address?.slice(-6)}
-                        </a>
-                        <button onClick={copyToClipboard} className={styles.copyBtn}>
-                            📋 Copy
-                        </button>
-                    </div>
-                </div>
-            </div>
+  return (
+    <div className={styles.tradeCard}>
+      {/* LEFT SECTION: TOKEN DATA */}
+      <div className={styles.leftCol}>
+        <div className={styles.header}>
+          <span className={styles.dot}></span> Token Info
         </div>
-    );
-};
 
-export default TradePanel;
+        <div className={styles.infoGrid}>
+          <div className={styles.row}>
+            <div className={styles.lbl}>MCap<br /><small>Real-time</small></div>
+            <div className={styles.val}>$N/A</div>
+          </div>
+          <div className={styles.row}>
+            <div className={styles.lbl}>Liq<br /><small>Available</small></div>
+            <div className={styles.val}>$N/A</div>
+          </div>
+          <div className={styles.row}>
+            <div className={styles.lbl}>Vol<br /><small>24h</small></div>
+            <div className={styles.val}>$N/A</div>
+          </div>
+        </div>
+
+        <button className={styles.contractBtn}>
+          Contract <span>Copy</span>
+        </button>
+
+        <div className={styles.footerStats}>
+          <div><span>Bot</span><b>≡ 0</b></div>
+          <div><span>Sold</span><b className={styles.red}>≡ 0</b></div>
+        </div>
+      </div>
+
+      <div className={styles.divider}></div>
+
+      {/* RIGHT SECTION: TRADE ACTIONS */}
+      <div className={styles.rightCol}>
+        <div className={styles.toggleRow}>
+          <button className={side === 'buy' ? styles.buyActive : ''} onClick={() => setSide('buy')}>Buy</button>
+          <button className={side === 'sell' ? styles.sellActive : ''} onClick={() => setSide('sell')}>Sell</button>
+        </div>
+
+        <div className={styles.tabs}>
+          <span className={orderType === 'market' ? styles.tabOn : ''} onClick={() => setOrderType('market')}>Market</span>
+          <span onClick={() => setOrderType('limit')}>Limit</span>
+          <span className={styles.price}>$N/A</span>
+        </div>
+
+        <input
+          className={styles.miniInput}
+          type="number"
+          placeholder="0.0"
+          value={amount}
+          onChange={(e) => setAmount(e.target.value)}
+        />
+
+        <div className={styles.quickBtns}>
+          {[0.01, 1, 10].map(v => (
+            <button key={v} onClick={() => setAmount(v.toString())}>{v}</button>
+          ))}
+        </div>
+
+        <div className={styles.microInfo}>
+          <span>⚡ 20%</span>
+          <span className={styles.warn}>⚠ 0.001</span>
+          <span className={styles.off}>⊘ Off</span>
+        </div>
+
+        <button className={`${styles.submitBtn} ${side === 'sell' ? styles.bgRed : ''}`}>
+          {side === 'buy' ? `Buy ${symbol}` : `Sell ${symbol}`}
+        </button>
+
+        <div className={styles.footerStats}>
+          <div><span>Hold</span><b>≡ 0</b></div>
+          <div><span>PnL</span><b className={styles.green}>+0%</b></div>
+        </div>
+      </div>
+    </div>
+  );
+}

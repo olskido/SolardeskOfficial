@@ -1,6 +1,4 @@
 import React, { useState } from 'react';
-import Card from '../Card/Card';
-import MenuDots from '../MenuDots/MenuDots';
 import DexScreenerChart from '../DexScreenerChart';
 import TradePanel from '../TradePanel';
 import styles from './PriceChartCard.module.css';
@@ -9,8 +7,8 @@ const PriceChartCard = () => {
     const [tab, setTab] = useState('chart');
 
     return (
-        <Card
-            title={
+        <div className={styles.container}>
+            <div className={styles.header}>
                 <div className={styles.tabs}>
                     <button
                         className={`${styles.tab} ${tab === 'chart' ? styles.active : ''}`}
@@ -25,14 +23,12 @@ const PriceChartCard = () => {
                         Trade
                     </button>
                 </div>
-            }
-            rightElement={<MenuDots />}
-        >
+            </div>
             <div className={styles.content}>
                 {tab === 'chart' && <DexScreenerChart />}
                 {tab === 'trade' && <TradePanel />}
             </div>
-        </Card>
+        </div>
     );
 };
 

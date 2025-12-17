@@ -13,14 +13,15 @@ const TrendingTable = () => {
     const [tokens, setTokens] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [showAll, setShowAll] = useState(false);
 
-    // Format price with appropriate decimals
-    const formatPrice = (value) => {
-        if (!value || isNaN(value)) return '$0.00';
+    // Format Market Cap
+    const formatMarketCap = (value) => {
+        if (!value || isNaN(value)) return '$0';
         const num = parseFloat(value);
-        if (num < 0.0001) return `$${num.toExponential(2)}`;
-        if (num < 1) return `$${num.toFixed(6)}`;
-        if (num < 100) return `$${num.toFixed(4)}`;
+        if (num >= 1000000000) return `$${(num / 1000000000).toFixed(2)}B`;
+        if (num >= 1000000) return `$${(num / 1000000).toFixed(2)}M`;
+        if (num >= 1000) return `$${(num / 1000).toFixed(2)}K`;
         return `$${num.toFixed(2)}`;
     };
 
@@ -42,10 +43,10 @@ const TrendingTable = () => {
 
             const profiles = await profilesResponse.json();
 
-            // Filter for Solana tokens and take first 5 to fit the table
+            // Filter for Solana tokens and take first 20 to fit the table
             const solanaProfiles = profiles
                 .filter(token => token.chainId === 'solana')
-                .slice(0, 5);
+                .slice(0, 20);
 
             if (solanaProfiles.length === 0) {
                 setTokens([]);
@@ -149,9 +150,12 @@ const TrendingTable = () => {
         <Card>
             <div className={styles['trending-header']}>
                 <h3 className="card-title">Trending on DexScreener</h3>
-                <span className={styles['change-badge']}>
-                    {loading ? 'Refreshing...' : 'Live Updates'}
-                </span>
+                <button
+                    className={styles['view-more-btn']}
+                    onClick={() => setShowAll(!showAll)}
+                >
+                    {showAll ? 'Show Less' : 'View More'}
+                </button>
             </div>
 
             {error ? (
@@ -162,7 +166,7 @@ const TrendingTable = () => {
                 <>
                     <div className={styles['table-header']}>
                         <div>Token</div>
-                        <div>Price</div>
+                        <div>Market Cap</div>
                         <div>1h %</div>
                         <div>24h %</div>
                     </div>
@@ -172,7 +176,7 @@ const TrendingTable = () => {
                             Loading trending tokens...
                         </div>
                     ) : (
-                        tokens.map((token, index) => {
+                        tokens.slice(0, showAll ? 20 : 5).map((token, index) => {
                             const priceChange1h = token.priceChange?.h1 || 0;
                             const priceChange24h = token.priceChange?.h24 || 0;
 
@@ -198,7 +202,7 @@ const TrendingTable = () => {
                                         )}
                                         <span>{token.symbol}</span>
                                     </div>
-                                    <div>{formatPrice(token.priceUsd)}</div>
+                                    <div>{formatMarketCap(token.fdv)}</div>
                                     <div className={priceChange1h >= 0 ? styles.positive : styles.negative}>
                                         {formatChange(priceChange1h)}
                                     </div>

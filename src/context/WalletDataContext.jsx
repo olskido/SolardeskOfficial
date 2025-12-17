@@ -15,8 +15,8 @@ export const WalletDataProvider = ({ children }) => {
     const fetchHoldings = async () => {
         if (!publicKey) {
             setHoldings([
-                { symbol: 'SOL', name: 'Solana', balance: 0, usdValue: 0, icon: '◎', iconClass: 'sol-icon' },
-                { symbol: 'USDC', name: 'USD Coin', balance: 0, usdValue: 0, icon: '$', iconClass: 'usdc-icon' },
+                { symbol: 'SOL', name: 'Solana', balance: 0, usdValue: 0, icon: '◎', iconClass: 'sol-icon', mint: 'So11111111111111111111111111111111111111112' },
+                { symbol: 'USDC', name: 'USD Coin', balance: 0, usdValue: 0, icon: '$', iconClass: 'usdc-icon', mint: 'EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v' },
             ]);
             setTransactions([]);
             setTotalValue(0);
@@ -54,7 +54,8 @@ export const WalletDataProvider = ({ children }) => {
                             balance: amount,
                             usdValue: 0, // No price feed
                             icon: '?',
-                            iconClass: ''
+                            iconClass: '',
+                            mint: mint
                         });
                     }
                 }
@@ -69,7 +70,8 @@ export const WalletDataProvider = ({ children }) => {
                     balance: solAmount,
                     usdValue: solUsd,
                     icon: '◎',
-                    iconClass: 'sol-icon'
+                    iconClass: 'sol-icon',
+                    mint: 'So11111111111111111111111111111111111111112'
                 },
                 {
                     symbol: 'USDC',
@@ -77,7 +79,8 @@ export const WalletDataProvider = ({ children }) => {
                     balance: usdcAmount,
                     usdValue: usdcUsd,
                     icon: '$',
-                    iconClass: 'usdc-icon'
+                    iconClass: 'usdc-icon',
+                    mint: 'EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v'
                 },
                 ...otherTokens
             ];

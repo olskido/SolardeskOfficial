@@ -1,19 +1,34 @@
 import React from 'react';
 import { useWallet } from '@solana/wallet-adapter-react';
 import { useWalletData } from '../../context/WalletDataContext';
+import { useToken } from '../../context/TokenContext';
 import Card from '../Card/Card';
 import styles from './Holdings.module.css';
 
 const Holdings = () => {
     const { publicKey } = useWallet();
     const { holdings, totalValue } = useWalletData();
+    const { setActiveToken } = useToken();
+
+    const handleTokenClick = (token) => {
+        setActiveToken({
+            symbol: token.symbol,
+            chain: 'solana',
+            pairAddress: token.mint // Using mint as pairAddress for now, DexScreener handles it
+        });
+    };
 
     return (
         <Card title="Holdings">
             {publicKey && <div className={styles['total-value']}>${totalValue.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</div>}
             <div className={styles['holdings-list']}>
                 {holdings.map((token) => (
-                    <div key={token.symbol} className={styles['token-item']}>
+                    <div
+                        key={token.symbol}
+                        className={styles['token-item']}
+                        onClick={() => handleTokenClick(token)}
+                        style={{ cursor: 'pointer' }}
+                    >
                         <div className={styles['token-info']}>
                             <div className={`${styles['token-icon']} ${styles[token.iconClass] || ''}`}>
                                 {token.icon}

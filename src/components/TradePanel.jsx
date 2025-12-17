@@ -8,7 +8,7 @@ export default function TradePanel() {
   const [amount, setAmount] = useState('');
   const [orderType, setOrderType] = useState('market');
 
-  const symbol = activeToken?.symbol || 'smlnem';
+  const symbol = activeToken?.symbol || 'SOL';
 
   return (
     <div className={styles.tradeCard}>

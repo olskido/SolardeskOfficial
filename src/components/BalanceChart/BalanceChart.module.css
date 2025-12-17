@@ -1,0 +1,49 @@
+.balance-chart {
+    background: linear-gradient(135deg, #1a1b2e 0%, #0f1020 100%);
+    border: 1px solid #2d3154;
+    border-radius: 20px;
+    padding: 20px 35px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.balance-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.balance-title {
+    font-size: 18px;
+    font-weight: 500;
+    color: #a0a0b0;
+}
+
+.up-to-date {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    color: #6366f1;
+}
+
+.status-dot {
+    width: 8px;
+    height: 8px;
+    background-color: #6366f1;
+    border-radius: 50%;
+}
+
+.balance-amount {
+    font-size: 42px;
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+.balance-change {
+    color: #10b981;
+    font-size: 16px;
+}

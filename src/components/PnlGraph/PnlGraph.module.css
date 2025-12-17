@@ -1,0 +1,77 @@
+.pnlGraph {
+    background: linear-gradient(135deg, #1a1b2e 0%, #0f1020 100%);
+    border: 1px solid #2d3154;
+    border-radius: 20px;
+    padding: 20px 30px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.title {
+    font-size: 18px;
+    font-weight: 500;
+    color: #a0a0b0;
+    margin: 0;
+}
+
+.periodButtons {
+    display: flex;
+    gap: 4px;
+    /* Reduced gap to fit all buttons */
+}
+
+.periodButtons button {
+    padding: 4px 8px;
+    /* Compact padding */
+    background: transparent;
+    border: 1px solid transparent;
+    border-radius: 6px;
+    color: #64748b;
+    font-size: 12px;
+    /* Smaller font */
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.periodButtons button:hover {
+    color: #a0a0b0;
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.activePeriod {
+    background: #6366f1 !important;
+    color: white !important;
+    border-color: #6366f1 !important;
+}
+
+.chartContainer {
+    flex: 1;
+    margin-bottom: 16px;
+    min-height: 100px;
+    position: relative;
+}
+
+.chartSvg {
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+}
+
+.amount {
+    font-size: 32px;
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+
+.change {
+    font-size: 14px;
+    font-weight: 500;
+}

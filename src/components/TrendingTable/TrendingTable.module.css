@@ -1,0 +1,73 @@
+.trending-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.change-badge {
+    font-size: 14px;
+    color: #a0a0b0;
+}
+
+.table-header {
+    display: grid;
+    grid-template-columns: 1.5fr 1.5fr 1fr 1fr;
+    padding: 12px 0;
+    border-bottom: 1px solid #2a2b3e;
+    margin-bottom: 15px;
+    font-size: 14px;
+    color: #6b7280;
+}
+
+.table-row {
+    display: grid;
+    grid-template-columns: 1.5fr 1.5fr 1fr 1fr;
+    padding: 18px 0;
+    border-bottom: 1px solid #1a1b2e;
+    align-items: center;
+    transition: background-color 0.2s;
+}
+
+.table-row:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+.platform-cell {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.platform-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    font-size: 14px;
+    object-fit: cover;
+}
+
+.uni-icon {
+    background-color: #ff007a;
+    color: white;
+}
+
+.ravelum-icon {
+    background-color: #1a1b2e;
+}
+
+.positive {
+    color: #10b981;
+}
+
+.negative {
+    color: #ef4444;
+}
+
+.neutral {
+    color: #6b7280;
+}

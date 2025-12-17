@@ -1,0 +1,83 @@
+.holdings-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.token-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 0;
+    border-bottom: 1px solid #1a1b2e;
+}
+
+.token-item:last-child {
+    border-bottom: none;
+}
+
+.token-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.token-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    font-weight: 600;
+    background-color: #1a1b2e;
+}
+
+.sol-icon {
+    background: linear-gradient(135deg, #14f195, #9945ff);
+}
+
+.usdc-icon {
+    background: #2775ca;
+}
+
+.token-details {
+    display: flex;
+    flex-direction: column;
+}
+
+.token-symbol {
+    font-weight: 600;
+    font-size: 15px;
+}
+
+.token-name {
+    color: #6b7280;
+    font-size: 12px;
+}
+
+.token-balance {
+    text-align: right;
+    display: flex;
+    flex-direction: column;
+}
+
+.balance-amount {
+    font-weight: 600;
+    font-size: 15px;
+}
+
+.balance-usd {
+    color: #6b7280;
+    font-size: 13px;
+}
+
+.total-value {
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    color: #10b981;
+}

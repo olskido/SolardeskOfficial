@@ -1,0 +1,12 @@
+.menu-dots {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.menu-dot {
+    width: 4px;
+    height: 4px;
+    background-color: #ffffff;
+    border-radius: 50%;
+}

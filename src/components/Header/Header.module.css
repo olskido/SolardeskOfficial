@@ -1,0 +1,39 @@
+.header {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 40px;
+}
+
+.user-btn,
+.wallet-btn {
+    padding: 0 24px;
+    /* Adjusted padding for WalletMultiButton */
+    height: 48px;
+    /* Fixed height to match design */
+    border-radius: 30px;
+    border: 1px solid #2a2b3e;
+    background-color: transparent !important;
+    /* Override default */
+    color: #ffffff;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+    transition: all 0.3s;
+    font-family: inherit;
+    /* Inherit font */
+}
+
+.user-btn:hover,
+.wallet-btn:hover {
+    background-color: #1a1b2e !important;
+    border-color: #6366f1;
+}
+
+/* Override internal WalletMultiButton styles */
+.wallet-btn :global(.wallet-adapter-button-trigger) {
+    background: transparent;
+}

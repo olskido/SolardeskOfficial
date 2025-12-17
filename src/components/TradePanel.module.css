@@ -1,0 +1,245 @@
+.container {
+    display: flex;
+    gap: 20px;
+    height: 100%;
+    padding: 20px;
+    background: #0a0b14;
+    /* match your dark theme */
+}
+
+.leftSection,
+.rightSection {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+/* LEFT: Your Original Form */
+.buySellToggle {
+    display: flex;
+    gap: 8px;
+}
+
+.buySellToggle button {
+    flex: 1;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    background: #1e293b;
+    color: #94a3b8;
+}
+
+.buyActive {
+    background: #22c55e !important;
+    color: black !important;
+}
+
+.sellActive {
+    background: #ef4444 !important;
+    color: black !important;
+}
+
+.form label {
+    color: #94a3b8;
+    font-size: 14px;
+}
+
+.form input {
+    padding: 12px;
+    background: #020617;
+    border: 1px solid #1e293b;
+    border-radius: 8px;
+    color: white;
+    font-size: 18px;
+}
+
+.presets {
+    display: flex;
+    gap: 8px;
+}
+
+.presets button {
+    flex: 1;
+    padding: 10px;
+    background: #1e293b;
+    border: none;
+    border-radius: 6px;
+    color: #94a3b8;
+}
+
+.buyBtn,
+.sellBtn {
+    padding: 16px;
+    border: none;
+    border-radius: 12px;
+    font-size: 18px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.buyBtn {
+    background: linear-gradient(90deg, #22c55e, #16a34a);
+    color: black;
+}
+
+.sellBtn {
+    background: linear-gradient(90deg, #ef4444, #dc2626);
+    color: black;
+}
+
+/* RIGHT: Exact Image 2 */
+.tabs {
+    display: flex;
+    gap: 12px;
+    border-bottom: 1px solid #333;
+    padding-bottom: 8px;
+}
+
+.tabs button {
+    background: none;
+    border: none;
+    color: #888;
+    font-size: 15px;
+    padding: 4px 0;
+}
+
+.activeTab {
+    color: white !important;
+    border-bottom: 2px solid #6366f1;
+}
+
+.amountRow {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.amountRow label {
+    color: #888;
+    font-size: 14px;
+    width: 70px;
+}
+
+.amountRow input {
+    flex: 1;
+    padding: 12px;
+    background: #111;
+    border: 1px solid #333;
+    border-radius: 8px;
+    color: white;
+    font-size: 18px;
+}
+
+.percentBtn {
+    padding: 12px 16px;
+    background: #222;
+    border: 1px solid #333;
+    color: white;
+    border-radius: 8px;
+}
+
+.presetsRow {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.presetsRow button {
+    flex: 1;
+    padding: 10px;
+    background: #111;
+    border: 1px solid #333;
+    color: #888;
+    border-radius: 6px;
+}
+
+.activePreset {
+    background: #22c55e !important;
+    color: black !important;
+}
+
+.editBtn {
+    background: #222;
+    border: 1px solid #333;
+    color: #888;
+    padding: 10px;
+    border-radius: 6px;
+}
+
+.slippageRow {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.slippageRow button {
+    padding: 8px 12px;
+    background: #111;
+    border: 1px solid #333;
+    color: #888;
+    border-radius: 6px;
+    font-size: 14px;
+}
+
+.sellInitBtn {
+    margin-left: auto;
+    background: #222;
+    color: #888;
+}
+
+.bigSellBtn {
+    background: linear-gradient(90deg, #ff1493, #ff69b4);
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+    padding: 18px;
+    border: none;
+    border-radius: 16px;
+    margin: 16px 0;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.bottomStats {
+    display: flex;
+    justify-content: space-between;
+    padding-top: 12px;
+    border-top: 1px solid #333;
+}
+
+.stat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 13px;
+}
+
+.stat span {
+    color: #888;
+    margin-bottom: 4px;
+}
+
+.green {
+    color: #22c55e;
+}
+
+.red {
+    color: #ef4444;
+}
+
+.purple {
+    color: #a855f7;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+    }
+}

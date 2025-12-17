@@ -14,7 +14,7 @@ export default function DexScreenerChart({ defaultToken }) {
         );
     }
 
-    const embedUrl = `https://dexscreener.com/${token.chain}/${token.pairAddress}?embed=1&theme=dark&trades=0&info=0`;
+    const embedUrl = `https://dexscreener.com/solana/${token.pairAddress}?embed=1&theme=dark&trades=0`;
 
     return (
         <div className={styles.card}>

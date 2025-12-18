@@ -1,23 +1,40 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { useWalletData } from '../../context/WalletDataContext';
 import styles from './PnlGraph.module.css';
 
 const PnlGraph = () => {
-    const { totalValue } = useWalletData();
+    const { totalValue, pnlData, balanceHistory } = useWalletData();
     const [timeRange, setTimeRange] = useState('7d');
 
-    // Mock data for different time ranges
-    const data = {
-        '1d': { change: '+1.2%', color: '#10b981', path: 'M0,80 Q50,70 100,60 T200,50 T300,40 T400,30' },
-        '3d': { change: '+3.5%', color: '#10b981', path: 'M0,80 Q50,60 100,70 T200,40 T300,50 T400,20' },
-        '5d': { change: '+5.8%', color: '#10b981', path: 'M0,90 Q50,80 100,60 T200,50 T300,30 T400,10' },
-        '7d': { change: '+15.2%', color: '#10b981', path: 'M0,100 Q50,90 100,70 T200,60 T300,40 T400,20' },
-        '14d': { change: '+22.4%', color: '#10b981', path: 'M0,110 Q50,100 100,80 T200,70 T300,50 T400,30' },
-        '30d': { change: '+45.1%', color: '#10b981', path: 'M0,120 Q50,110 100,90 T200,80 T300,60 T400,40' },
-    };
+    // Generate SVG path from balance history
+    const generatePath = useMemo(() => {
+        if (balanceHistory.length < 2) {
+            // Default upward line when no history
+            return 'M0,100 Q50,90 100,70 T200,60 T300,40 T400,20';
+        }
+
+        const points = balanceHistory.slice(-50); // Last 50 data points
+        const minVal = Math.min(...points.map(p => p.value));
+        const maxVal = Math.max(...points.map(p => p.value));
+        const range = maxVal - minVal || 1;
+
+        const pathPoints = points.map((point, i) => {
+            const x = (i / (points.length - 1)) * 400;
+            const y = 150 - ((point.value - minVal) / range) * 130;
+            return `${x},${y}`;
+        });
+
+        return `M${pathPoints.join(' L')}`;
+    }, [balanceHistory]);
+
+    const changePercent = pnlData.change7d;
+    const isPositive = changePercent >= 0;
+    const color = isPositive ? '#10b981' : '#ef4444';
 
     const currentData = {
-        ...data[timeRange],
+        change: `${isPositive ? '+' : ''}${changePercent.toFixed(2)}%`,
+        color: color,
+        path: generatePath,
         amount: `$${totalValue.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`
     };
 

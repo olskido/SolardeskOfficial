@@ -134,6 +134,17 @@ const TrendingTable = () => {
         return () => clearInterval(interval);
     }, [fetchTrendingTokens]);
 
+    // Auto-set first trending coin to chart
+    useEffect(() => {
+        if (tokens.length > 0 && tokens[0].pairAddress) {
+            setActiveToken({
+                symbol: tokens[0].symbol,
+                chain: 'solana',
+                pairAddress: tokens[0].pairAddress
+            });
+        }
+    }, [tokens, setActiveToken]);
+
     const handleTokenClick = (token) => {
         if (token.pairAddress) {
             setActiveToken({

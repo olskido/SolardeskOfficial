@@ -1,59 +1,50 @@
 import React from 'react';
 import styles from './Footer.module.css';
+import { Twitter, Github, Send, MessageSquare } from 'lucide-react';
 
 const Footer = () => {
+    const writeups = [
+        "The ultimate terminal for Solana traders — rebuilt for speed and clarity.",
+        "Real-time analytics, lightning-fast execution, zero clutter.",
+        "Track $SOL gems, smart wallets, and market moves in one desk.",
+    ];
+
     return (
         <footer className={styles.footer}>
-            <div className={styles['footer-content']}>
-                <div className={styles['footer-section']}>
-                    <h3>SolarDesk</h3>
-                    <p>Your premier destination for cryptocurrency trading and portfolio management. Trade with confidence on the decentralized future.</p>
+            <div className={styles.footerContainer}>
+
+                {/* Top Row */}
+                <div className={styles.topSection}>
+
+                    {/* Logo + Text */}
+                    <div className={styles.leftBlock}>
+                        <img
+                            src="/logo.png"
+                            alt="SolarDesk Logo"
+                            className={styles.logo}
+                        />
+
+                        <div className={styles.writeup}>
+                            {writeups.map((text, i) => (
+                                <p key={i}>{text}</p>
+                            ))}
+                        </div>
+                    </div>
+
+                    {/* Social Icons */}
+                    <div className={styles.socialLinks}>
+                        <a href="https//x.com/olskiddo" title="X (Twitter)"><Twitter size={22} /></a>
+                        <a href="#" title="Telegram"><Send size={22} /></a>
+                        <a href="#" title="Discord"><MessageSquare size={22} /></a>
+                        <a href="#" title="GitHub"><Github size={22} /></a>
+                    </div>
                 </div>
-                <div className={styles['footer-section']}>
-                    <h3>Product</h3>
-                    <ul className={styles['footer-links']}>
-                        <li><a href="#">Features</a></li>
-                        <li><a href="#">Trading</a></li>
-                        <li><a href="#">Analytics</a></li>
-                        <li><a href="#">Pricing</a></li>
-                    </ul>
+
+                {/* Bottom Bar */}
+                <div className={styles.bottomBar}>
+                    <p>© 2025 Powered by Solana.</p>
                 </div>
-                <div className={styles['footer-section']}>
-                    <h3>Resources</h3>
-                    <ul className={styles['footer-links']}>
-                        <li><a href="#">Documentation</a></li>
-                        <li><a href="#">API</a></li>
-                        <li><a href="#">Support</a></li>
-                        <li><a href="#">Blog</a></li>
-                    </ul>
-                </div>
-                <div className={styles['footer-section']}>
-                    <h3>Company</h3>
-                    <ul className={styles['footer-links']}>
-                        <li><a href="#">About Us</a></li>
-                        <li><a href="#">Careers</a></li>
-                        <li><a href="#">Contact</a></li>
-                        <li><a href="#">Partners</a></li>
-                    </ul>
-                </div>
-                <div className={styles['footer-section']}>
-                    <h3>Legal</h3>
-                    <ul className={styles['footer-links']}>
-                        <li><a href="#">Privacy Policy</a></li>
-                        <li><a href="#">Terms of Service</a></li>
-                        <li><a href="#">Cookie Policy</a></li>
-                        <li><a href="#">Disclaimer</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div className={styles['footer-bottom']}>
-                <p>&copy; 2024 SolarDesk. All rights reserved.</p>
-                <div className={styles['social-links']}>
-                    <a href="#">Twitter</a>
-                    <a href="#">Discord</a>
-                    <a href="#">Telegram</a>
-                    <a href="#">GitHub</a>
-                </div>
+
             </div>
         </footer>
     );

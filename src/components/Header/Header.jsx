@@ -1,11 +1,22 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styles from './Header.module.css';
+import { Menu, X } from 'lucide-react';
 
 import { WalletMultiButton } from '@solana/wallet-adapter-react-ui';
 
-const Header = () => {
+const Header = ({ onMenuToggle, isMenuOpen }) => {
     return (
         <header className={styles.header}>
+            <div className={styles.logoArea}>
+                <img src="/logo.png" alt="SolarDesk Logo" className={styles.logo} />
+                <button
+                    className={styles.menuBtn}
+                    onClick={onMenuToggle}
+                    aria-label="Toggle menu"
+                >
+                    {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+                </button>
+            </div>
             <WalletMultiButton className={styles['wallet-btn']} />
         </header>
     );

@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Sidebar from '../Sidebar/Sidebar';
 
-const Layout = ({ children }) => {
+const Layout = ({ children, onMenuToggle, isMenuOpen }) => {
     return (
         <div className="container">
-            <Sidebar />
+            <Sidebar isOpen={isMenuOpen} onClose={onMenuToggle} />
             <main className="main-content">
                 {children}
             </main>

@@ -4,7 +4,7 @@ import { useWalletData } from '../../context/WalletDataContext';
 import styles from './BalanceChart.module.css';
 
 const BalanceChart = () => {
-    const { totalValue } = useWalletData();
+    const { totalValue, pnlData } = useWalletData();
     const { publicKey } = useWallet();
 
     const copyAddress = () => {
@@ -13,6 +13,10 @@ const BalanceChart = () => {
         }
     };
 
+    const changeValue = pnlData?.change1d || 0;
+    const changeDisplay = `${changeValue >= 0 ? '+' : ''}${changeValue.toFixed(2)}%`;
+    const changeColor = changeValue >= 0 ? '#10b981' : '#ef4444';
+
     return (
         <section className={styles['balance-chart']}>
             <div className={styles['balance-content']}>
@@ -20,7 +24,7 @@ const BalanceChart = () => {
                 <div className={styles['balance-amount']}>
                     ${totalValue.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                 </div>
-                <div className={styles['balance-change']}>+0.00</div>
+                <div className={styles['balance-change']} style={{ color: changeColor }}>{changeDisplay}</div>
 
                 {publicKey && (
                     <div className={styles['wallet-address']}>

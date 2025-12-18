@@ -1,21 +1,44 @@
 .header {
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
     align-items: center;
     gap: 15px;
     margin-bottom: 40px;
 }
 
+.logoArea {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.logo {
+    width: 40px;
+    height: 40px;
+}
+
+.menuBtn {
+    display: none;
+    background: transparent;
+    border: none;
+    color: #ffffff;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 8px;
+    transition: background 0.2s;
+}
+
+.menuBtn:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
 .user-btn,
 .wallet-btn {
     padding: 0 24px;
-    /* Adjusted padding for WalletMultiButton */
     height: 48px;
-    /* Fixed height to match design */
     border-radius: 30px;
     border: 1px solid #2a2b3e;
     background-color: transparent !important;
-    /* Override default */
     color: #ffffff;
     cursor: pointer;
     display: flex;
@@ -24,7 +47,6 @@
     font-size: 14px;
     transition: all 0.3s;
     font-family: inherit;
-    /* Inherit font */
 }
 
 .user-btn:hover,
@@ -36,4 +58,17 @@
 /* Override internal WalletMultiButton styles */
 .wallet-btn :global(.wallet-adapter-button-trigger) {
     background: transparent;
+}
+
+@media (max-width: 768px) {
+    .header {
+        flex-direction: row;
+        justify-content: space-between;
+    }
+
+    .menuBtn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
 }

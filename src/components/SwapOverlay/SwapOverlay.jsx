@@ -1,16 +1,28 @@
 import React, { useEffect } from 'react';
+import { useWallet } from '@solana/wallet-adapter-react';
+import { useWalletData } from '../../context/WalletDataContext';
 import styles from './SwapOverlay.module.css';
 
 const SwapOverlay = ({ isOpen, onClose }) => {
+    const wallet = useWallet();
+    const { refresh } = useWalletData();
+
     useEffect(() => {
         // Only initialize if the overlay is open and script is loaded
         if (isOpen && window.Jupiter) {
             window.Jupiter.init({
                 displayMode: "integrated",
                 integratedTargetId: "jupiter-terminal-container",
-                endpoint: "https://api.mainnet-beta.solana.com", // Replace with your own RPC for speed
+                endpoint: "https://api.mainnet-beta.solana.com",
                 theme: 'dark',
-                // Optional: Custom styling to match your neon green/dark theme
+                enableWalletPassthrough: true,
+                passthroughWalletContextState: wallet,
+                onSuccess: () => {
+                    // Refresh wallet data after successful swap
+                    setTimeout(() => {
+                        refresh();
+                    }, 2000); // Wait for blockchain confirmation
+                },
                 customTheme: {
                     palette: {
                         primary: "#10b981",
@@ -20,7 +32,7 @@ const SwapOverlay = ({ isOpen, onClose }) => {
                 }
             });
         }
-    }, [isOpen]);
+    }, [isOpen, wallet, refresh]);
 
     if (!isOpen) return null;
 

@@ -4,9 +4,7 @@ import { Twitter, Github, Send, MessageSquare } from 'lucide-react';
 
 const Footer = () => {
     const writeups = [
-        "The ultimate terminal for Solana traders — rebuilt for speed and clarity.",
-        "Real-time analytics, lightning-fast execution, zero clutter.",
-        "Track $SOL gems, smart wallets, and market moves in one desk.",
+        "The Market Focus Track SOL gems and market moves in one desk. Built for the next generation of degens."
     ];
 
     return (

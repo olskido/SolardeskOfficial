@@ -59,6 +59,8 @@ body {
 
 .grid.first-row {
     grid-template-columns: 0.6fr 1.4fr;
+    min-height: 550px;
+    /* Increased from implicit height to make it ~30% bigger */
 }
 
 /* Balance Grid */
@@ -71,7 +73,21 @@ body {
 }
 
 @media (max-width: 768px) {
+    .dashboard-content {
+        padding: 20px 16px;
+    }
+
     .balance-grid {
         grid-template-columns: 1fr;
+    }
+
+    .grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .grid.first-row {
+        grid-template-columns: 1fr;
+        min-height: auto;
     }
 }

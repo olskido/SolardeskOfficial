@@ -8,7 +8,6 @@ const Header = ({ onMenuToggle, isMenuOpen }) => {
     return (
         <header className={styles.header}>
             <div className={styles.logoArea}>
-                <img src="/logo.png" alt="SolarDesk Logo" className={styles.logo} />
                 <button
                     className={styles.menuBtn}
                     onClick={onMenuToggle}

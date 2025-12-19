@@ -33,10 +33,10 @@ const Footer = () => {
 
                     {/* Social Icons */}
                     <div className={styles.socialLinks}>
-                        <a href="https//x.com/olskiddo" title="X (Twitter)"><Twitter size={22} /></a>
-                        <a href="#" title="Telegram"><Send size={22} /></a>
-                        <a href="#" title="Discord"><MessageSquare size={22} /></a>
-                        <a href="#" title="GitHub"><Github size={22} /></a>
+                        <a href="https://www.x.com/olskiddo" title="X (Twitter)"><Twitter size={22} /></a>
+                        <a href="https://www.t.me/olskido" title="Telegram"><Send size={22} /></a>
+                        <a href="https://www.discord.com/olskido" title="Discord"><MessageSquare size={22} /></a>
+                        <a href="https://github.com/olskido" title="GitHub"><Github size={22} /></a>
                     </div>
                 </div>
 

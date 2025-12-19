@@ -1,45 +1,8 @@
 .container {
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 0;
     height: 100%;
-}
-
-.header {
-    display: flex;
-    justify-content: flex-start;
-}
-
-.tabs {
-    display: flex;
-    gap: 4px;
-    background: #161b22;
-    padding: 4px;
-    border-radius: 8px;
-    border: 1px solid #30363d;
-}
-
-.tab {
-    padding: 6px 16px;
-    background: transparent;
-    border: none;
-    color: #8b949e;
-    cursor: pointer;
-    font-size: 12px;
-    font-weight: 600;
-    border-radius: 6px;
-    transition: all 0.2s;
-}
-
-.tab:hover {
-    color: #c9d1d9;
-}
-
-.active {
-    background: #3b82f6;
-    /* blue-500 */
-    color: white;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .content {

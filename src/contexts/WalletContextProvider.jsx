@@ -1,32 +1,28 @@
 import React, { useMemo } from 'react';
-import { ConnectionProvider, WalletProvider } from '@solana/wallet-adapter-react';
-import { WalletAdapterNetwork } from '@solana/wallet-adapter-base';
+import {
+    ConnectionProvider,
+    WalletProvider,
+} from '@solana/wallet-adapter-react';
 import { WalletModalProvider } from '@solana/wallet-adapter-react-ui';
-import { clusterApiUrl } from '@solana/web3.js';
 
-// Default styles that can be overridden by your app
+import { WalletDataProvider } from '../context/WalletDataContext';
+import { RPC_ENDPOINT } from '../config/rpc';
+
 import '@solana/wallet-adapter-react-ui/styles.css';
 
 export const WalletContextProvider = ({ children }) => {
-    // The network can be set to 'devnet', 'testnet', or 'mainnet-beta'.
-    const network = WalletAdapterNetwork.Mainnet;
+    const endpoint = useMemo(() => RPC_ENDPOINT, []);
 
-    // You can also provide a custom RPC endpoint.
-    const endpoint = useMemo(() => clusterApiUrl(network), [network]);
-
-    const wallets = useMemo(
-        () => [
-            // Phantom and Solflare support the Wallet Standard and are auto-detected.
-            // Explicit adapters are no longer needed for them.
-        ],
-        [network]
-    );
+    // Wallet Standard auto-detects Phantom, Solflare, etc.
+    const wallets = useMemo(() => [], []);
 
     return (
         <ConnectionProvider endpoint={endpoint}>
             <WalletProvider wallets={wallets} autoConnect>
                 <WalletModalProvider>
-                    {children}
+                    <WalletDataProvider>
+                        {children}
+                    </WalletDataProvider>
                 </WalletModalProvider>
             </WalletProvider>
         </ConnectionProvider>

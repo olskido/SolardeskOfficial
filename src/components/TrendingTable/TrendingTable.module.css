@@ -87,3 +87,42 @@
     background: rgba(99, 102, 241, 0.2);
     border-color: #6366f1;
 }
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+    .table-header {
+        grid-template-columns: 1.2fr 1fr 0.8fr 0.8fr;
+        font-size: 11px;
+        padding: 10px 0;
+        gap: 8px;
+    }
+
+    .table-row {
+        grid-template-columns: 1.2fr 1fr 0.8fr 0.8fr;
+        padding: 12px 0;
+        font-size: 12px;
+        gap: 8px;
+    }
+
+    .platform-cell {
+        gap: 8px;
+    }
+
+    .platform-cell span {
+        font-size: 12px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 60px;
+    }
+
+    .platform-icon {
+        width: 24px;
+        height: 24px;
+        font-size: 11px;
+    }
+
+    .trending-header h3 {
+        font-size: 14px;
+    }
+}

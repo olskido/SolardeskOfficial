@@ -3,6 +3,12 @@
     border: 1px solid #2d3154;
     border-radius: 20px;
     padding: 30px;
+    height: 100%;
+    /* Ensure card fills the grid cell */
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    /* Ensure it grows if in a flex container */
 }
 
 .card-header {

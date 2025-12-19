@@ -8,30 +8,48 @@ const SwapOverlay = ({ isOpen, onClose }) => {
     const { refresh } = useWalletData();
 
     useEffect(() => {
-        // Only initialize if the overlay is open and script is loaded
-        if (isOpen && window.Jupiter) {
-            window.Jupiter.init({
-                displayMode: "integrated",
-                integratedTargetId: "jupiter-terminal-container",
-                endpoint: "https://api.mainnet-beta.solana.com",
-                theme: 'dark',
-                enableWalletPassthrough: true,
-                passthroughWalletContextState: wallet,
-                onSuccess: () => {
-                    // Refresh wallet data after successful swap
-                    setTimeout(() => {
-                        refresh();
-                    }, 2000); // Wait for blockchain confirmation
-                },
-                customTheme: {
-                    palette: {
-                        primary: "#10b981",
-                        base: "#0d1117",
-                        surface: "#161b22",
-                    }
-                }
-            });
-        }
+        if (!isOpen || !window.Jupiter) return;
+
+        // Use multiple RPC endpoints for fallback
+        const RPC_ENDPOINTS = [
+            'https://api.mainnet-beta.solana.com',
+            'https://solana-api.projectserum.com',
+            'https://rpc.ankr.com/solana',
+        ];
+
+        window.Jupiter.init({
+            displayMode: 'integrated',
+            integratedTargetId: 'jupiter-terminal-container',
+            endpoint: RPC_ENDPOINTS[0],
+
+            // Enable RPC fallback for reliability
+            enableRpcFallback: true,
+
+            // Allow all tokens
+            strictTokenList: false,
+
+            theme: 'dark',
+
+            // Wallet passthrough
+            enableWalletPassthrough: true,
+            passthroughWalletContextState: wallet,
+
+            // Callback after successful swap
+            onSuccess: ({ txid }) => {
+                console.log('Swap successful:', txid);
+                setTimeout(refresh, 2000);
+            },
+
+            // Error handling
+            onError: (error) => {
+                console.error('Jupiter error:', error);
+            },
+        });
+
+        return () => {
+            const el = document.getElementById('jupiter-terminal-container');
+            if (el) el.innerHTML = '';
+        };
     }, [isOpen, wallet, refresh]);
 
     if (!isOpen) return null;
@@ -40,15 +58,14 @@ const SwapOverlay = ({ isOpen, onClose }) => {
         <div className={styles.overlayWrapper}>
             <div className={styles.swapCard}>
                 <div className={styles.header}>
-                    <span className={styles.title}>Jupiter Swap</span>
-                    <button className={styles.closeBtn} onClick={onClose}>&times;</button>
+                    <span>Jupiter Swap</span>
+                    <button onClick={onClose} className={styles.closeBtn}>×</button>
                 </div>
-
-                {/* This is where Jupiter will inject the real swap UI */}
-                <div id="jupiter-terminal-container" className={styles.terminalBody}></div>
+                <div
+                    id="jupiter-terminal-container"
+                    className={styles.terminalBody}
+                />
             </div>
-
-            {/* Background blur/dimmer */}
             <div className={styles.backdrop} onClick={onClose} />
         </div>
     );

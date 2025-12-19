@@ -1,6 +1,9 @@
 import React from 'react';
 import styles from './Footer.module.css';
-import { Twitter, Github, Send, MessageSquare } from 'lucide-react';
+import Twitter from 'lucide-react/dist/esm/icons/twitter';
+import Github from 'lucide-react/dist/esm/icons/github';
+import Send from 'lucide-react/dist/esm/icons/send';
+import MessageSquare from 'lucide-react/dist/esm/icons/message-square';
 
 const Footer = () => {
     const writeups = [
